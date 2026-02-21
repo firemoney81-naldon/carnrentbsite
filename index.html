@@ -1,23 +1,623 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+
+<!-- JSON-LD for Search Engine Optimization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "중고차 리스 전문 서비스",
+      "provider": {
+        "@type": "Organization",
+        "name": "중고차리스 비교 전문 플랫폼",
+        "url": "https://yourdomain.com",
+        "logo": "https://yourdomain.com/logo.png"
+      },
+      "areaServed": "대한민국",
+      "description": "2026년 최신 중고차리스 가격 비교 및 견적 안내. 고객 맞춤형 중고차리스 상품 추천과 전문 업체 순위 정보 제공.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "중고차리스 상품 종류",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "운용리스 (Full Service Lease)"
+            },
+            "description": "리스료 전액 비용처리, 보험/정비 포함 가능, 계약 종료 후 인수/반납/재리스 선택 가능"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "금융리스 (Finance Lease)"
+            },
+            "description": "초기 비용 최소화, 차량 소유권 인정(금융기관 명의), 저렴한 금리, 부채로 인식"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "초기 비용 제로 리스"
+            },
+            "description": "보증금 및 선납금 없이 진행, 월 리스료 부담은 증가하나 초기 목돈 지출 없음"
+          }
+        ]
+      }
+    }
+    </script>
+    <style>
+        /* CSS Reset and Global Styles */
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            background-color: #f7f9fb; /* Light background */
+            color: #333;
+        }
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 12px;
+        }
+        section {
+            padding: 2.5rem 0;
+        }
+        h1, h2, h3, h4 {
+            color: #1a3a60; /* Deep blue heading color */
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        h2 {
+            font-size: 2.2rem;
+            border-left: 5px solid #007bff; /* Accent color */
+            padding-left: 1rem;
+        }
+        h3 {
+            font-size: 1.8rem;
+            color: #007bff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        p {
+            margin-bottom: 1.5rem;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+        ul, ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 0;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #007bff;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 2rem;
+        }
+        nav a {
+            font-weight: 500;
+            color: #555;
+            position: relative;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #007bff;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(135deg, #eef5ff 0%, #dceaff 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 12px 12px 0 0;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: #1a3a60;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        .hero .cta-button {
+            display: inline-block;
+            background-color: #ff6600;
+            color: white;
+            font-weight: 700;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+        .hero .cta-button:hover {
+            background-color: #e65c00;
+        }
+
+        /* Content Sections (Specific styling) */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .advantage-card {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .advantage-card:hover {
+            transform: translateY(-5px);
+        }
+        .advantage-card h4 {
+            font-size: 1.4rem;
+            color: #007bff;
+            margin-top: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: 600;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .comparison-table td:nth-child(1) {
+            font-weight: 500;
+            background-color: #f1f7ff;
+        }
+
+        /* FAQ Accordion */
+        dl {
+            margin-bottom: 2rem;
+        }
+        dl dt {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            color: #1a3a60;
+            background-color: #f5f8ff;
+            padding: 1rem;
+            border-radius: 8px;
+            position: relative;
+            user-select: none;
+        }
+        dl dt:hover {
+            background-color: #eef5ff;
+        }
+        dl dt::after {
+            content: "+";
+            position: absolute;
+            right: 1rem;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        dl dt.active::after {
+            content: "-";
+            transform: rotate(180deg);
+        }
+        dl dd {
+            margin-left: 0;
+            padding: 1rem 1.5rem;
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            display: none;
+        }
+        dl dt.active + dd {
+            display: block;
+        }
+
+        /* Keyword Tags */
+        .keyword-tags {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .keyword-tags a {
+            background-color: #e0f0ff;
+            color: #0066cc;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .keyword-tags a:hover {
+            background-color: #b3d1ff;
+        }
+
+        /* Call to Action Section */
+        #reservation-form {
+            background-color: #f1f7ff;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        #reservation-form h2 {
+            font-size: 2rem;
+            color: #1a3a60;
+        }
+        #reservation-form p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 1rem auto;
+            text-align: left;
+        }
+        .input-group input, .input-group select {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #777;
+            background-color: #eef5ff;
+            margin-top: 3rem;
+        }
+
+        /* Additional Content Styles for Expertise */
+        .expert-tip {
+            border-left: 4px solid #ffaa00;
+            background-color: #fffaf0;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+        .external-links {
+            padding: 2rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        .external-links h3 {
+            border-bottom: none;
+            margin-top: 0;
+        }
+        .external-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .external-links li {
+            margin-bottom: 0.8rem;
+        }
+        .external-links a {
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo"><a href="#home">중고차리스 비교센터</a></div>
+            <nav>
+                <ul>
+                    <li><a href="#introduction">서비스 안내</a></li>
+                    <li><a href="#comparison">리스 비교</a></li>
+                    <li><a href="#models">인기 모델 추천</a></li>
+                    <li><a href="#faq">자주 묻는 질문</a></li>
+                    <li><a href="#reservation">견적 문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section class="hero" id="home">
+            <h1>2026년 최신 중고차리스 가격 비교<br>내게 맞는 견적을 찾는 가장 확실한 방법</h1>
+            <p>합리적인 비용으로 원하는 차량을 소유하는 새로운 기준, 중고차리스. 복잡한 견적을 쉽고 빠르게 비교하고, 전문 업체 순위 정보와 내돈내산 후기를 바탕으로 최적의 선택을 안내합니다.</p>
+            <a href="#reservation" class="cta-button">무료 견적 요청하기</a>
+        </section>
+
+        <section id="introduction">
+            <h2>중고차리스란 무엇이며, 왜 선택해야 할까요?</h2>
+            <p>중고차리스는 이미 일정 기간 운행된 중고 차량을 리스사로부터 빌려 사용하는 금융 상품입니다. 신차 구매 대비 초기 비용이 매우 낮고, 월 리스료에 차량 가격 하락분이 반영되어 신차 리스보다 저렴한 비용으로 차량을 운용할 수 있습니다. 2026년 현재, 고금리 시대와 신차 출고 지연 문제로 인해 중고차 시장이 활성화되면서 중고차리스에 대한 관심이 더욱 높아지고 있습니다.</p>
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <h4>합리적인 비용 (저렴한 가격)</h4>
+                    <p>신차 리스 대비 월 납입금이 저렴하여 경제적 부담을 덜 수 있습니다. 특히 초기 비용 부담이 적어 목돈 지출 없이 차량을 운용할 수 있는 큰 장점이 있습니다.</p>
+                </div>
+                <div class="advantage-card">
+                    <h4>신속한 출고</h4>
+                    <p>신차의 경우 6개월 이상 소요될 수 있는 출고 기간 없이, 계약 후 1~2주 내에 차량 인수가 가능합니다. 급하게 차량이 필요한 분들에게 최적의 선택입니다.</p>
+                </div>
+                <div class="advantage-card">
+                    <h4>다양한 차량 선택 폭</h4>
+                    <p>세단, SUV, 전기차, 수입차 등 다양한 모델 중에서 원하는 옵션과 주행거리를 가진 차량을 직접 선택할 수 있습니다. 이미 검증된 차량을 확인하고 계약할 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison">
+            <h2>중고차리스 vs. 신차리스 vs. 장기렌트 비교 분석 (장단점 차이점)</h2>
+            <p>차량을 운용하는 방법은 다양합니다. 중고차리스를 선택하기 전에 신차리스나 장기렌트와 비교하여 각각의 장단점을 명확히 파악하는 것이 중요합니다. 특히 비용(가격, 견적)과 세금 혜택에서 큰 차이를 보입니다.</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>중고차리스</th>
+                        <th>신차리스</th>
+                        <th>장기렌트</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>차량 상태</td>
+                        <td>중고 (1~5년 이내 차량)</td>
+                        <td>신차</td>
+                        <td>신차</td>
+                    </tr>
+                    <tr>
+                        <td>월 납입금 (견적)</td>
+                        <td>신차 리스 대비 저렴함</td>
+                        <td>중고차 리스 대비 높음</td>
+                        <td>신차 리스 대비 저렴함 (LPG 모델 가능)</td>
+                    </tr>
+                    <tr>
+                        <td>초기 비용</td>
+                        <td>보증금/선납금 (조절 가능)</td>
+                        <td>보증금/선납금 (조절 가능)</td>
+                        <td>보증금 (조절 가능, 무보증 가능)</td>
+                    </tr>
+                    <tr>
+                        <td>보험 처리</td>
+                        <td>개인 보험 가입 (보험 경력 유지)</td>
+                        <td>개인 보험 가입 (보험 경력 유지)</td>
+                        <td>렌트사 보험 (보험 경력 단절)</td>
+                    </tr>
+                    <tr>
+                        <td>번호판</td>
+                        <td>일반 번호판 (하, 허, 호 아님)</td>
+                        <td>일반 번호판</td>
+                        <td>렌트 번호판 (하, 허, 호)</td>
+                    </tr>
+                    <tr>
+                        <td>세금 처리</td>
+                        <td>리스료 전액 비용처리 (사업자 유리)</td>
+                        <td>리스료 전액 비용처리 (사업자 유리)</td>
+                        <td>렌트료 전액 비용처리 (사업자 유리)</td>
+                    </tr>
+                    <tr>
+                        <td>인수/반납</td>
+                        <td>계약 만료 시 선택 가능</td>
+                        <td>계약 만료 시 선택 가능</td>
+                        <td>계약 만료 시 선택 가능</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="expert-tip">
+                <h4>전문가 Tip: 중고차리스가 유리한 경우</h4>
+                <p>신차 가격 부담은 크지만 신차급 차량을 빠르게 이용하고 싶을 때, 그리고 개인 보험 경력을 유지하고 싶거나 일반 번호판을 선호하는 사업자에게 중고차리스가 가장 좋은 대안입니다. 신차 대비 저렴한 가격으로 고가의 수입차를 경험하고 싶은 분들께도 추천합니다.</p>
+            </div>
+        </section>
+
+        <section id="models">
+            <h2>중고차리스 인기 모델별 가격 및 견적 예상</h2>
+            <p>중고차리스는 어떤 차량을 선택하느냐에 따라 월 납입금 견적이 크게 달라집니다. 주행거리, 연식, 사고 유무 등 다양한 요소를 고려하여 자신에게 맞는 모델을 선택해야 합니다. 2026년 현재 시장에서 가장 많은 후기와 추천을 받는 인기 모델을 중심으로 평균 가격과 특징을 정리했습니다.</p>
+            <div class="keyword-tags">
+                <a href="#k5">K5 중고차리스</a>
+                <a href="#sonata">쏘나타 중고차리스</a>
+                <a href="#g80">G80 중고차리스</a>
+                <a href="#santafe">싼타페 중고차리스</a>
+                <a href="#carnival">카니발 중고차리스</a>
+                <a href="#ev6">EV6 중고차리스</a>
+                <a href="#a6">아우디 A6 중고차리스</a>
+                <a href="#eclass">벤츠 E-Class 중고차리스</a>
+                <a href="#model3">테슬라 모델3 중고차리스</a>
+            </div>
+
+            <h3 id="sonata">1. 쏘나타 (Sonata) 및 K5 중고차리스 견적</h3>
+            <p>국산 중형 세단의 대표주자인 쏘나타와 K5는 중고차리스 시장에서 가장 인기가 높습니다. 3년 내외의 짧은 연식 차량의 경우 신차급 컨디션을 유지하면서도 월 리스료가 신차 대비 30% 이상 저렴할 수 있습니다. 특히 2026년 기준으로 2021~2023년형 모델이 가장 많이 거래되며, 주행거리 3~5만km 기준 월 리스료 평균은 40~50만원대(36개월 기준, 보증금 20% 가정)로 예상됩니다.</p>
+
+            <h3 id="g80">2. 제네시스 G80 중고차리스 (고급 세단)</h3>
+            <p>고급 세단인 G80은 신차 가격이 높아 부담스러울 수 있습니다. 하지만 중고차리스를 이용하면 신차 출고가의 절반 수준으로 3년~4년 된 모델을 이용할 수 있습니다. 신차를 살 때보다 초기 감가상각이 이미 반영되어 있어, 중고차리스로 이용할 경우 월 비용(견적)이 매우 합리적입니다. 중고차리스 업체 순위 비교를 통해 G80 모델을 저렴하게 이용할 수 있는 전문 업체를 찾는 것이 중요합니다.</p>
+
+            <h3 id="santafe">3. 싼타페, 쏘렌토 중고차리스 (SUV)</h3>
+            <p>패밀리카로 선호되는 싼타페와 쏘렌토 역시 중고차리스 인기 모델입니다. SUV는 감가율이 상대적으로 낮아 잔존가치가 높게 책정될 수 있습니다. 2026년 기준 2~3년 된 싼타페의 평균 리스료는 50~60만원대이며, 캠핑이나 레저용으로 활용도가 높아 내돈내산 후기가 많은 모델입니다.</p>
+
+            <h3 id="carnival">4. 카니발 중고차리스 (미니밴)</h3>
+            <p>패밀리 밴인 카니발은 신차 출고 대기가 길어 중고차 시장에서 프리미엄이 붙기도 합니다. 중고차리스는 이러한 모델을 빠르게 이용할 수 있는 훌륭한 대안입니다. 카니발 중고차리스는 특히 보증금을 높게 설정하여 월 납입금을 최대한 낮추는 것이 유리합니다. 초기 비용이 부담되더라도 보증금을 활용하여 전체 리스 비용을 절감하는 방법을 추천합니다.</p>
+
+            <h3 id="ev6">5. EV6, 아이오닉 5 중고차리스 (전기차)</h3>
+            <p>전기차 보조금이 매년 변동하고, 배터리 기술이 빠르게 발전하면서 전기차의 감가상각이 빠르게 진행되는 편입니다. 이 때문에 신차 구매보다는 중고차리스로 전기차를 경험하는 것이 경제적일 수 있습니다. 중고 전기차리스는 배터리 보증 기간과 주행 가능 거리를 꼼꼼하게 확인하는 것이 중요합니다.</p>
+
+            <h3 id="import_car">6. 수입차 중고차리스 (벤츠 E-Class, BMW 5 Series, 아우디 A6)</h3>
+            <p>수입차는 신차 대비 감가상각이 크기 때문에 중고차리스로 이용 시 비용 효율성이 극대화됩니다. 특히 벤츠 E-Class, BMW 5 Series, 아우디 A6와 같은 인기 모델은 3~4년 된 모델의 리스료가 국산 준대형 세단 신차 가격 수준으로 저렴하게 형성되어 있습니다. 수입차 전문 중고차리스 업체는 정비 시스템까지 갖추고 있어 안심하고 이용할 수 있습니다.</p>
+        </section>
+
+        <section id="faq">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+            <p>중고차리스에 대해 고객들이 가장 궁금해하는 질문들을 모아 답변해 드립니다.</p>
+            <dl>
+                <dt tabindex="0" aria-expanded="false" class="accordion-header">Q. 중고차리스 가입 조건 및 자격은 어떻게 되나요?</dt>
+                <dd class="accordion-content">기본적으로 만 20세 이상, 운전 경력 1년 이상이어야 합니다. 가장 중요한 것은 신용 등급과 소득 증빙입니다. 리스사마다 신용 등급 기준이 다르지만, 일반적으로 신용 점수 600~700점 이상이어야 승인 가능성이 높습니다. 소득 증빙이 어려운 경우에도 보증금을 높게 설정하거나 공동 명의를 통해 진행할 수 있습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="accordion-header">Q. 중고차리스는 일반 중고차 구매와 어떤 차이점이 있나요?</dt>
+                <dd class="accordion-content">가장 큰 차이점은 차량 소유권입니다. 중고차를 구매하면 즉시 내 명의로 등록되지만, 중고차리스는 리스 기간 동안 리스사 명의로 등록됩니다. 이 때문에 리스료를 비용처리할 수 있어 절세 효과가 있습니다. 또한, 차량 구매 시 취득세, 등록세 등 초기 비용이 발생하지만, 리스는 이러한 비용을 월 리스료에 포함하여 지출 부담을 줄일 수 있습니다. 중고차리스는 금융 상품이므로 개인 부채로 인식될 수 있습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="accordion-header">Q. 중고차리스 비용을 저렴하게 이용할 수 있는 팁이 있나요?</dt>
+                <dd class="accordion-content">중고차리스 가격을 결정하는 요소는 여러 가지입니다. 첫째, 보증금 비율을 높여 월 리스료를 낮출 수 있습니다. 둘째, 리스 기간을 길게 가져가면 월 납입금이 줄어듭니다. 셋째, 여러 업체에서 견적을 비교하는 것이 필수입니다. 업체별로 차량 매입 가격과 잔존가치 책정 기준이 달라 월 리스료 차이가 크게 발생할 수 있습니다. 마지막으로, 주행거리가 상대적으로 길거나 연식이 조금 지난 차량을 선택하면 가격이 더욱 저렴해집니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="accordion-header">Q. 중고차리스는 내돈내산 후기가 좋은가요? 단점은 무엇인가요?</dt>
+                <dd class="accordion-content">내돈내산 후기를 보면 '신차급 차량을 저렴하게 이용할 수 있다'는 장점이 주로 언급됩니다. 하지만 중고차리스의 단점도 존재합니다. 주행거리 제한이 있어 약정된 거리를 초과하면 위약금이 발생합니다. 또한, 중도 해지 시 위약금이 높게 책정될 수 있으므로 계약 전 신중하게 결정해야 합니다. 차량 관리 및 정비는 리스 이용자가 부담하는 경우가 많으므로 이 부분을 꼼꼼히 확인해야 합니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="accordion-header">Q. 중고차리스 vs. 중고차 장기렌트, 어떤 것을 추천하나요?</dt>
+                <dd class="accordion-content">중고차 장기렌트는 보험료와 자동차세가 렌트료에 포함되어 있어 편리하지만 '하, 허, 호' 번호판을 사용해야 하고, 개인 보험 경력이 단절됩니다. 중고차리스는 개인 보험을 가입해야 하고 '일반 번호판'을 사용합니다. 보험 경력 유지를 원하고 번호판에 민감한 개인 사업자나 전문직 종사자에게는 중고차리스를 추천합니다. 반면, 보험 관리를 신경 쓰고 싶지 않고 비용 절감을 최우선으로 한다면 장기렌트가 유리합니다.</dd>
+            </dl>
+        </section>
+
+        <section id="external-info">
+            <h2>중고차리스 관련 신뢰성 있는 정보 (외부 자료 참고)</h2>
+            <p>중고차리스는 금융 상품이므로 신뢰할 수 있는 정보를 바탕으로 결정해야 합니다. 아래는 중고차 시장 및 리스 관련 정보를 얻을 수 있는 공인된 외부 사이트입니다.</p>
+            <div class="external-links">
+                <ul>
+                    <li><a href="https://namu.wiki/w/자동차%20리스" target="_blank">나무위키: 자동차 리스 (리스의 개념 및 장단점)</a></li>
+                    <li><a href="https://www.car.go.kr/index.jsp" target="_blank">자동차민원 대국민포털 (국토교통부)</a>: 차량 등록 및 이전, 세금 관련 정보 확인</li>
+                    <li><a href="https://www.fss.or.kr/fss/main/main.do" target="_blank">금융감독원 (FSS)</a>: 금융리스 관련 소비자 보호 정보 및 분쟁 해결 기준 안내</li>
+                    <li><a href="https://www.kostat.go.kr/portal/korea/index.action" target="_blank">통계청 (KOSIS)</a>: 국내 자동차 시장 동향 및 통계 자료</li>
+                    <li><a href="https://www.ppomi.go.kr/sub/info.do?code=CONSUMER_INFO&idx=27" target="_blank">한국소비자원</a>: 자동차 리스 계약 시 소비자 유의사항</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="reservation">
+            <h2>중고차리스 1:1 맞춤 견적 요청 및 상담</h2>
+            <p>수많은 중고차리스 업체 중 어디가 저렴한곳인지, 어떤 모델이 나에게 맞는지 고민이신가요? 견적을 비교하고 싶다면 아래 양식을 작성해 주세요. 전문 컨설턴트가 2026년 최신 시장 상황을 반영하여 가장 유리한 조건을 찾아드립니다.</p>
+            <form id="reservation-form">
+                <div class="input-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+
+                    <label for="contact">연락처</label>
+                    <input type="tel" id="contact" name="contact" required placeholder="예: 010-1234-5678">
+
+                    <label for="car-model">희망 차량 모델 (선택)</label>
+                    <select id="car-model" name="car-model">
+                        <option value="">-- 모델을 선택하세요 --</option>
+                        <option value="sonata">쏘나타</option>
+                        <option value="k5">K5</option>
+                        <option value="g80">G80</option>
+                        <option value="santafe">싼타페</option>
+                        <option value="sorento">쏘렌토</option>
+                        <option value="carnival">카니발</option>
+                        <option value="gv70">GV70</option>
+                        <option value="eclass">벤츠 E-Class</option>
+                        <option value="5series">BMW 5 Series</option>
+                        <option value="etc">기타 모델</option>
+                    </select>
+
+                    <label for="lease-term">희망 리스 기간 (개월)</label>
+                    <select id="lease-term" name="lease-term">
+                        <option value="36">36개월</option>
+                        <option value="48">48개월</option>
+                        <option value="60">60개월</option>
+                    </select>
+
+                    <label for="comments">추가 문의사항 (예: 보증금 여부, 주행거리, 저렴한곳 추천 요청 등)</label>
+                    <textarea id="comments" name="comments" rows="4"></textarea>
+                </div>
+                <button type="submit" class="submit-button">견적 문의 신청</button>
+            </form>
+            <p style="font-size: 0.9rem; margin-top: 1rem;">* 고객님의 개인정보는 견적 상담 목적으로만 사용되며, 철저히 보호됩니다.</p>
+        </section>
     </main>
-  </body>
-</html>
+
+    <script>
+        // FAQ 아코디언 기능 (접기/펼치기)
+        document.querySelectorAll('dl dt').forEach((dt) => {
+            dt.addEventListener('click', () => {
+                const isActive = dt.classList.contains('active');
+                // 모든 dd 닫기
+                document.querySelectorAll('dl dt').forEach(otherDt => {
+                    otherDt.classList.remove('active');
+                    otherDt.setAttribute('aria-expanded', 'false');
+                });
+                // 클릭한 dt만 열기 (토글)
+                if (!isActive) {
+                    dt.classList.add('active');
+                    dt.setAttribute('aria-expanded', 'true');
+                }
+            });
+            dt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dt.click();
+                }
+            });
+        });
+    </script>
+
+  
